@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN"
+ "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+ 
+<log4j:configuration>
+
+<!-- appender 영역 : 로그 출력 유형과 출력 형태 등을 설정 하는 태그 -->
+<appender name="console" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout"> 
+        <param name="ConversionPattern" value="%t>; [%d{yyyy-MM-dd HH:mm:ss}] [%c{1}] [%L] [%p] %m %n"/> 
+    </layout> 
+</appender>  
+
+<!-- 하루에 한번씩 파일을 새로 생성, 기존ㄴ의 파일은 확장자를 DatePattern의 규칙으로 변경됨 -->
+<appender name="dailyFile" class="org.apache.log4j.DailyRollingFileAppender">    <!-- log4j-1.2.15.jar에 존재 -->
+    <!-- 이것은 날짜별로  로그를 남김. 파일명.확장자.DatePattern으로 정의 함--> 
+    <!-- 파일이 저장되는 곳 Root폴더는 선택이 안됨, 하위 폴더면 폴더가 생성되어있어야함. -->
+     <param name="File" value="C:/java/log/mybatis.log"/>
+    <!--  <param name="File" value="${catalina.home}/WEB-INF/log/output.log" /> -->
+    <!-- 파일생성 안됨<param name="File" value="${context.root}/WEB-INF/log/output.log" />  -->
+     
+    <param name="Append" value="true" />
+    <!-- param name="MaxFileSize" value="100000KB" /> -->
+    <!-- param name="MaxBackupIndex" value="10" /> -->
+    <param name="DatePattern" value="'.'yyMMdd"/> 
+    <layout class="org.apache.log4j.PatternLayout"> 
+        <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss}] [%c{1}] [%p] %m %n"/>
+         
+        <!--
+          <param name="ConversionPattern" value="%t> [%d{yyyy-MM-dd HH:mm:ss}] [%c{1}] [%L] [%p] %m %n"/>
+                            위 pattern 결과 :    http-bio-8080-exec-6> [2017-01-12 12:07:44] [root] [179] [ERROR]
+         --> 
+    </layout> 
+</appender>     
+
+<!-- logger 영역-->
+<!-- 출력하는 유형에 모두다 적용되는 "대상" -->
+<logger name="java.sql.Connection">
+	<level value = "TRACE"/>
+</logger>
+<logger name="java.sql.PreparedStatement">
+	<level value = "TRACE"/>
+</logger>
+<logger name="java.sql.ResultSet">
+	<level value = "TRACE"/>
+</logger>
+<!-- root영역 : 로그 레벨을 설정하고 사용되는 유형 객체 -->
+<root>
+	<level value="TRACE"/> 
+	<appender-ref ref="console"/> <!-- 콘솔 -->
+	<appender-ref ref="dailyFile"/> <!-- 파일 -->
+</root>
+</log4j:configuration>  

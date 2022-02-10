@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.min.edu.jobs">
+	<!-- xml매퍼는 여러개를 구분하여 사용하기 위해 구분자를 넣게 되는 namespace -->
+	<!-- mapper dtd 작성되어 있는 xml -->
+	<!-- SQL 쿼리, 매핑되는 (parameter, result) 개체 연결, 호출되는 이름(id) -->
+	<select id="selectJobsAll" resultType="jobsvo">
+		SELECT JOB_ID ,
+		JOB_TITLE ,
+		MIN_SALARY ,
+		MAX_SALARY
+		FROM JOBS j
+	</select>
+</mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.min.edu.model.ProductsDaoImpl">
+<sql id="allColumn">
+SELECT P_NO , P_NAME , P_PRICE , P_CONTENT , P_STOCK 
+	FROM PRODUCTS p 
+</sql>
+<select id="selectFood" parameterType="java.lang.Object" resultType="productsvo">
+	<include refid="allColumn"/>
+	<![CDATA[WHERE P_CATEGORY = #{pid}]]>
+</select>
+
+</mapper>
